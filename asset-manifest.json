@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.css": "/Wings1Handson/static/css/main.31d6cfe0.css",
+    "main.js": "/Wings1Handson/static/js/main.13354849.js",
+    "index.html": "/Wings1Handson/index.html",
+    "main.13354849.js.map": "/Wings1Handson/static/js/main.13354849.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.31d6cfe0.css",
+    "static/js/main.13354849.js"
+  ]
+}

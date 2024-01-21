@@ -1,5 +1,6 @@
 import './App.css';
 import {useState} from 'react';
+import checkEmptyField from './checkEmptyField';
 let key=1;
 let index=1;
 function App() {
@@ -14,11 +15,12 @@ function App() {
   const [noTitleMessage, setnoTitleMessage] = useState(true);
   const [noDescriptionMessage, setnoDescriptionMessage] = useState(true);
   const [noTopicMessage, setnoTopicMessage] = useState(true);
+  const [viewAgendaEnabled,setviewAgendaEnabled] = useState(true);
   return (
     <div className="App">
       <h2 className='text-center'>Agenda Maker</h2>
       <div className="container mb-3">
-        <button type="button" className="btn btn-primary btn-sm" onClick={()=>setviewAgenda(!viewAgenda)}>Click To {viewAgenda?"View":"Add"} Agenda</button>
+        <button type="button" className="btn btn-primary btn-sm" onClick={()=>setviewAgenda(!viewAgenda)} disabled={viewAgendaEnabled}>Click To {viewAgenda?"View":"Add"} Agenda</button>
       </div>
       {viewAgenda && <form className="container">
       <div className="form-group">
@@ -36,7 +38,7 @@ function App() {
           <label htmlFor="topic">Enter topic</label>
           <input type="text" className="form-control mb-2" id="topic" placeholder="Enter the topic" value={topic} onChange={(e)=>settopic(e.target.value)}/>
           {!noTopicMessage && <small className="form-text text-danger" >Topic is required</small>}
-          <button type="button" className="btn btn-success btn-sm" disabled={!topic} 
+          <button type="button" className="btn btn-success btn-sm" disabled={checkEmptyField(topic)} 
           onClick={()=> 
           {
             if(topic.trim().length!==0)
@@ -57,7 +59,7 @@ function App() {
           }}>+ Add Topic</button>
         </div>
         {/* <button type="button" className="btn btn-success btn-sm" disabled={!title&&!description} */}
-        <button type="button" className="btn btn-success btn-sm" disabled={!title||!description}
+        <button type="button" className="btn btn-success btn-sm" disabled={(checkEmptyField(title))||(checkEmptyField(description))||(!topicAdded)}
           onClick={()=>
           { 
             if(title.trim().length!==0 && description.trim().length!==0 &&topicAdded)
@@ -72,6 +74,7 @@ function App() {
             setnoDescriptionMessage(true);
             setnoTopicMessage(true);
             settopicAdded(false);
+            setviewAgendaEnabled(false);
             }
             else 
             {
